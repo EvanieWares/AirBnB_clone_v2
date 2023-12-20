@@ -10,6 +10,7 @@ class Amenity(BaseModel, Base):
     """Add amenities"""
 
     __tablename__ = "amenities"
+
     if "db" == os.getenv("HBNB_TYPE_STORAGE"):
         name = Column(String(128), nullable=False)
         place_amenities = relationship(
