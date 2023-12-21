@@ -3,6 +3,7 @@
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, Integer, String, Float, ForeignKey, Table
 from sqlalchemy.orm import relationship
+from models.amenity import Amenity
 from os import getenv
 
 place_amenity = Table(
@@ -44,8 +45,7 @@ class Place(BaseModel, Base):
     if getenv('HBNB_TYPE_STORAGE') == 'db':
         reviews = relationship('Review', backref='place',
                                cascade='all, delete-orphan')
-        amenities = relationship("Amenity", secondary="place_amenity",
-                                 back_populates="place_amenities", viewonly=False)
+        amenities = relationship("Amenity", secondary="place_amenity", viewonly=False)
     else:
         @property
         def reviews(self):
@@ -69,7 +69,6 @@ class Place(BaseModel, Base):
             amenity_ids that contains all Amenity.id linked to the Place
             """
             from models import storage
-            from models.amenity import Amenity
 
             amenity_list = []
             for amenity in list(storage.all(Amenity).values()):
@@ -79,7 +78,5 @@ class Place(BaseModel, Base):
 
         @amenities.setter
         def amenities(self, value):
-            from models.amenity import Amenity
-
             if type(value) is Amenity:
                 self.amenity_ids.append(value.id)
