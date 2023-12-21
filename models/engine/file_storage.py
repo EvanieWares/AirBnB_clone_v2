@@ -17,12 +17,12 @@ class FileStorage:
                     if isinstance(j, cls)}
 
     def delete(self, obj=None):
-        """
-        Delete obj from __objects if it’s inside - if obj is equal to None
-        """
+        """Delete obj from FileStorage.__objects"""
         if obj is not None:
-            obj_key = obj.to_dict()['__class__'] + '.' + obj.id
-            self.all().pop(obj_key, None)
+            for key, val in FileStorage.__objects.items():
+                if val is obj:
+                    del FileStorage.__objects[key]
+                    break
 
     def new(self, obj):
         """Adds new object to storage dictionary"""
