@@ -7,7 +7,7 @@ from models.city import City
 from os import getenv
 
 
-class State(BaseModel):
+class State(BaseModel, Base):
     """ State class """
     __tablename__ = 'states'
 
@@ -15,7 +15,7 @@ class State(BaseModel):
 
     if getenv('HBNB_TYPE_STORAGE') == 'db':
         cities = relationship('City', backref='state',
-                              cascade='all, delete, delete-orphan')
+                              cascade='all, delete-orphan')
     else:
         @property
         def cities(self):
