@@ -118,30 +118,18 @@ class HBNBCommand(cmd.Cmd):
         if not args:
             print("** class name missing **")
             return
-        arg_list = args.split()
-        cls_name = arg_list[0]
-        if cls_name not in HBNBCommand.classes:
+        elif args not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
-        new_instance = HBNBCommand.classes[cls_name]()
-        for param in arg_list[1:]:
-            key, value = param.split('=', 1)
-            if value.startswith('"'):
-                value = value.strip('"').replace("_", " ").replace('\\"', '"')
-            elif '.' in value:
-                value = float(value)
-            else:
-                value = int(value)
-            setattr(new_instance, key, value)
-        new_instance.save()
+        new_instance = HBNBCommand.classes[args]()
+        storage.save()
         print(new_instance.id)
+        storage.save()
 
     def help_create(self):
         """ Help information for the create method """
         print("Creates a class of any type")
-        print(
-            "[Usage]: create <Class name> <param 1> <param 2> <param 3>...\n"
-        )
+        print("[Usage]: create <className>\n")
 
     def do_show(self, args):
         """ Method to show an individual object """
@@ -199,7 +187,7 @@ class HBNBCommand(cmd.Cmd):
         key = c_name + "." + c_id
 
         try:
-            del (storage.all()[key])
+            del(storage.all()[key])
             storage.save()
         except KeyError:
             print("** no instance found **")
@@ -331,7 +319,6 @@ class HBNBCommand(cmd.Cmd):
         """ Help information for the update class """
         print("Updates an object with new information")
         print("Usage: update <className> <id> <attName> <attVal>\n")
-
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
