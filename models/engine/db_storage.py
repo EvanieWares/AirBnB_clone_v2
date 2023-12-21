@@ -42,7 +42,10 @@ class DBStorage:
         """
         classes = {
             'State': State,
-            'City': City
+            'City': City,
+            'User': User,
+            'Place': Place,
+            'Review': Review
         }
 
         objects = {}
