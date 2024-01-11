@@ -3,7 +3,9 @@
 Fabfile to distribute an archive to a web server.
 """
 import os.path
-from fabric.api import env, put, run
+from fabric.api import env
+from fabric.api import put
+from fabric.api import run
 
 env.hosts = ["52.91.133.58", "54.157.146.125"]
 
