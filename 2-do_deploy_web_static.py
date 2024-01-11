@@ -5,7 +5,7 @@ Fabfile to distribute an archive to a web server.
 import os.path
 from fabric.api import env, put, run
 
-env.hosts = ["104.196.168.90", "35.196.46.172"]
+env.hosts = ["52.91.133.58", "54.157.146.125"]
 
 
 def do_deploy(archive_path):
