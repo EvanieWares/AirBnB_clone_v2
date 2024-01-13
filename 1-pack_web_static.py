@@ -10,6 +10,9 @@ from fabric.api import local
 def do_pack():
     """
     Creates a tgz archive from the contents of web_static.
+
+    Returns:
+        Archive path, otherwise None
     """
     dt = datetime.utcnow()
     file = "versions/web_static_{}{}{}{}{}{}.tgz".format(dt.year,
