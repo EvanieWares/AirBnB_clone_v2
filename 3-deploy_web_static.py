@@ -27,11 +27,17 @@ def do_pack():
                                                          dt.hour,
                                                          dt.minute,
                                                          dt.second)
+    print("Packing web_static to {}".format(file))
     if os.path.isdir("versions") is False:
         if local("mkdir -p versions").failed is True:
             return None
     if local("tar -cvzf {} web_static".format(file)).failed is True:
         return None
+    print("web_static packed: {} -> {}Bytes".format(
+        file,
+        os.path.getsize(file)
+        )
+    )
     return file
 
 
