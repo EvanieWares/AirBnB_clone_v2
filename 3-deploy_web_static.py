@@ -14,7 +14,12 @@ env.hosts = ["52.91.133.58", "54.157.146.125"]
 
 
 def do_pack():
-    """Create a tar gzipped archive of the directory web_static."""
+    """
+    Creates a tgz archive from the contents of web_static.
+
+    Returns:
+        Archive path, otherwise None
+    """
     dt = datetime.utcnow()
     file = "versions/web_static_{}{}{}{}{}{}.tgz".format(dt.year,
                                                          dt.month,
@@ -31,12 +36,13 @@ def do_pack():
 
 
 def do_deploy(archive_path):
-    """Distributes an archive to a web server.
+    """
+    Distributes an archive to web server.
+
     Args:
         archive_path (str): The path of the archive to distribute.
     Returns:
-        If the file doesn't exist at archive_path or an error occurs - False.
-        Otherwise - True.
+        True if all operations have been done correctly, otherwise False.
     """
     if os.path.isfile(archive_path) is False:
         return False
@@ -67,12 +73,19 @@ def do_deploy(archive_path):
     if run("ln -s /data/web_static/releases/{}/ /data/web_static/current".
            format(name)).failed is True:
         return False
+    print('New version deployed!')
     return True
 
 
 def deploy():
-    """Create and distribute an archive to a web server."""
-    file = do_pack()
-    if file is None:
+    """
+    Create and distribute an archive to web servers.
+
+    Returns:
+        False if no archive has been created, otherwise the return value
+        of do_deploy.
+    """
+    archive_path = do_pack()
+    if archive_path is None:
         return False
-    return do_deploy(file)
+    return do_deploy(archive_path)
