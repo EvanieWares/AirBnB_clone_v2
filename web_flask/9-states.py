@@ -20,15 +20,14 @@ def states(id):
     Route /states/ and /states/<id>
     """
     states = storage.all("State")
-    if id and id in states:
-        return render_template(
-            "8-cities_by_states.html",
-            state=states[id], state_id=id
-            )
-    return render_template(
-        "8-cities_by_states.html",
-        states=states, state_id=id
-        )
+    if id:
+        state_id = "State." + id
+        if state_id in states:
+            return render_template(
+                "8-cities_by_states.html",
+                state=states[id], state_id=state_id
+                )
+    return render_template("9-states.html", states=states)
 
 
 if __name__ == '__main__':
