@@ -14,14 +14,12 @@ def remove_sqlalchemy_session(exception):
 
 
 @app.route('/states', strict_slashes=False)
-@app.route('/states/<id>', strict_slashes=False)
-def states(id=None):
-    """
-    Route /states/ and /states/<id>
-    """
+@app.route('/states/<state_id>', strict_slashes=False)
+def states(state_id=None):
+    """display the states and cities listed in alphabetical order"""
     states = storage.all("State")
-    if id:
-        state_id = 'State.' + id
+    if state_id is not None:
+        state_id = 'State.' + state_id
     return render_template('9-states.html', states=states, state_id=state_id)
 
 
