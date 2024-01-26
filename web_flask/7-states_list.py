@@ -23,8 +23,8 @@ def states_list():
             - 'LI' tag: description of one 'State': <state.id>: <B><state.name>
               </B> + 'UL' tag: with the list of 'City' objects linked to the
               'State' sorted by name (A->Z)
-                - 'LI' tag: description of one 'City': <city.id>: <B><city.name>
-                  </B>
+                - 'LI' tag: description of one 'City': <city.id>:
+                  <B><city.name></B>
     """
     states = storage.all(State).values()
     return render_template("7-states_list.html", states=states)
