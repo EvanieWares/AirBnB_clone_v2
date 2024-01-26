@@ -22,10 +22,7 @@ def states_list():
         - 'UL' tag: with the list of all 'State' objects present in DBStorage
           sorted by name (A->Z)
             - 'LI' tag: description of one 'State': <state.id>: <B><state.name>
-              </B> + 'UL' tag: with the list of 'City' objects linked to the
-              'State' sorted by name (A->Z)
-                - 'LI' tag: description of one 'City': <city.id>:
-                  <B><city.name></B>
+              </B>
     """
     states = storage.all(State).values()
     sorted_states = sorted(states, key=lambda x: x.name)
