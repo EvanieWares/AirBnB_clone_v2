@@ -9,6 +9,7 @@ app = Flask(__name__)
 
 @app.teardown_appcontext
 def remove_sqlalchemy_session(exception):
+    """Removes the current SQLAlchemy Session"""
     storage.close()
 
 
@@ -27,7 +28,8 @@ def states_list():
                   <B><city.name></B>
     """
     states = storage.all(State).values()
-    return render_template("7-states_list.html", states=states)
+    sorted_states = sorted(states, key=lambda x: x.name)
+    return render_template("7-states_list.html", states=sorted_states)
 
 
 if __name__ == '__main__':
