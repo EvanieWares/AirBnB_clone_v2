@@ -2,7 +2,7 @@
 """A script that starts a Flask web application"""
 from flask import Flask, render_template
 from models import storage
-from models.state import State
+from models import *
 
 app = Flask(__name__)
 
@@ -27,7 +27,7 @@ def cities_by_states():
                 - 'LI' tag: description of one 'City': <city.id>:
                   <B><city.name></B>
     """
-    states = storage.all(State)
+    states = storage.all("State").values
     return render_template("8-cities_by_states.html", states=states)
 
 
