@@ -13,27 +13,16 @@ def remove_sqlalchemy_session(exception):
     storage.close()
 
 
-@app.route('/states/', defaults={'id': ''}, strict_slashes=False)
+@app.route('/states', strict_slashes=False)
 @app.route('/states/<id>', strict_slashes=False)
-def states(id):
+def states(id=None):
     """
     Route /states/ and /states/<id>
     """
-    states = storage.all("State").values()
-    if id == '':
-        states = sorted(states.values(), key=lambda state: state.name)
-        return render_template('9-states.html', states=states)
-    else:
-        id = "State." + id
-        state = states[id]
-        if state:
-            cities = sorted(state.cities, key=lambda city: city.name)
-            return render_template(
-                '9-states.html',
-                state=state,
-                cities = cities
-                )
-    return render_template("9-states.html", not_found=True)
+    states = storage.all("State")
+    if id:
+        state_id = 'State.' + id
+    return render_template('9-states.html', states=states, state_id=state_id)
 
 
 if __name__ == '__main__':
