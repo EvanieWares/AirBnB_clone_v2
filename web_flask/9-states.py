@@ -13,14 +13,14 @@ def remove_sqlalchemy_session(exception):
     storage.close()
 
 
-@app.route('/states/', strict_slashes=False)
+@app.route('/states/', defaults={'id': None}, strict_slashes=False)
 @app.route('/states/<id>', strict_slashes=False)
 def states(id):
     """
     Route /states/ and /states/<id>
     """
     states = storage.all("State")
-    if id:
+    if id is not None:
         id = "State." + id
     return render_template("9-states.html", states=states, state_id=id)
 
