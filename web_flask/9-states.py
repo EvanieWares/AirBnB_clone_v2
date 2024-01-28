@@ -15,15 +15,15 @@ def remove_sqlalchemy_session(exception):
 
 @app.route('/states', strict_slashes=False)
 @app.route('/states/<state_id>', strict_slashes=False)
-def states(id=None):
+def states(state_id=None):
     """
     Route /states and /states/<id>
     Display the states and cities listed in alphabetical order
     """
     states = storage.all("State")
-    if id is not None:
-        id = 'State.' + id
-    return render_template('9-states.html', states=states, state_id=id)
+    if state_id is not None:
+        state_id = 'State.' + state_id
+    return render_template('9-states.html', states=states, state_id=state_id)
 
 
 if __name__ == '__main__':
